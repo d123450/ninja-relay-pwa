@@ -1,22 +1,20 @@
-# Ninja Relay PWA
+# Ninja Relay PWA 3
 
-手机入口：**https://d123450.github.io/ninja-relay-pwa/**
+手机安装入口：https://d123450.github.io/ninja-relay-pwa/
 
-在 iPhone Safari 打开，等待“已完整缓存”，然后用分享菜单“添加到主屏幕”。使用 Windows 接收端生成的配对链接；如果是旧版的局域网链接，把完整链接粘贴到手机应用的“连接”页即可，不需要访问那个局域网地址。
+3.0 使用 **同一局域网内的 Windows 客户端信令**，不再依赖 VDO.Ninja 公网信令、STUN 或 TURN。需要 Windows 3.0 配套客户端；旧二维码不能用于本版本，请重新扫描。
 
-GitHub Pages 提供公开 HTTPS 程序资源，不存储摄像头画面、麦克风音频或配对密钥。配对内容放在 URL 的 `#pair=` 片段，只在设备端解析。媒体使用 VDO.Ninja 信令协商 WebRTC 连接。
+首次从 Windows“配对”页扫码，按本地页面完成电脑 HTTPS 证书信任。返回页面后配对信息自动带入，核对电脑名再确认。Safari 添加到主屏幕，等“已完整缓存”。手机应用提供“查找电脑”和内置扫码，配对后保存地址。Safari 无法在信任前任意广播扫描整个局域网，因此首次使用系统相机二维码引导。
 
-首次安装保存并校验整个发布版本，包括 SDK、界面、图标及音频工作线程。以后离线可打开；连接设备和推流仍需网络。手机应用“设置 → 应用版本”页依次选择“检查新版本 → 下载并校验 → 启用并重启”，不会自动下载应用更新。更新失败保留当前版本，启动失败可回退。
+GitHub 只提供程序静态文件，不接收音视频、配对密钥或信令。Windows 也提供相同的离线 PWA，本地入口完成设置后可完全不连接外网。建议使用电脑二维码提供的本地入口。
 
-本仓库只包含已构建的 PWA 静态文件。`main` 分支根目录通过 GitHub Pages 发布，`.nojekyll` 保留普通静态文件处理。`release.json` 为版本及资源 SHA-256 清单。发布时保留旧版本目录，先上传完整新版本，再更新清单；同一版本号的资源不可变。
+SDK、UI、二维码和扫码实现、工作线程、图标及许可全部缓存。以后启动读取本地资源；“设置 → 离线资源与版本”页手动检查、下载、启用或回退。不会自动启用新版本。Safari 清理网站数据后需要重新缓存。
 
-## 第三方组件
+此仓库只发布静态资源，release.json 包含 SHA-256 与长度。保留旧版目录，同一版本资源不可变。网页自身不能创建 Windows 虚拟设备。
 
-- [VDO.Ninja SDK](https://github.com/steveseguin/ninjasdk)：MPL-2.0，固定提交 `2a846f37512e711ca3ab9be8fb391a867d0614e9`。未修改源码和许可证随各版本放在 `releases/<版本>/vendor/vdoninja-sdk.js` 与 `vendor/LICENSE`。
-- [node-qrcode](https://github.com/soldair/node-qrcode)：MIT，1.5.4，许可证随各版本放在 `vendor/qrcode-LICENSE.txt`。
+第三方：
+- VDO.Ninja SDK，Steve Seguin，MPL-2.0，固定提交 2a846f37512e711ca3ab9be8fb391a867d0614e9。未修改源码与许可随每版提供。
+- qrcode 1.5.4，MIT。
+- jsQR 1.4.0，MIT。
 
-Windows 虚拟摄像头与麦克风由配套 C# 接收端及 UnityCapture / VB-CABLE 提供，网页本身不能注册 Windows 虚拟设备。
-
-## v2.0.0
-
-重新设计手机与桌面界面，常用参数收拢为三个画质预设。搭配 Windows 2.0 接收端使用共享缓冲视频通道；只更新网页不会升级旧 EXE。Windows 接收端会检测实际系统麦克风，并提供音频路由和录音测试。
+配套 Windows：Ninja Relay Camera 为 Windows 11 会话式 MF 摄像头；麦克风复用 VB-Audio 的 CABLE Output。关闭客户端时移除摄像头、停用线缆端点，内核音频驱动保留。

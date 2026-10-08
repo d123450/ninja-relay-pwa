@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10151e"><meta name="referrer" content="no-referrer"><title>Ninja Relay · 安装</title><style>body{margin:0;background:#10151e;color:#f0f4fa;font:16px system-ui;display:grid;place-content:center;min-height:100vh;padding:24px;box-sizing:border-box}main{max-width:420px}h1{font-size:30px}p{line-height:1.8;color:#a5b3c7}button{padding:14px 24px;border:0;border-radius:10px;background:#94b9ff;color:#10151e;font:inherit}a{color:#94b9ff}</style></head><body><main><h1>Ninja Relay</h1><p id="status">正在保存应用和推流组件。首次打开需要联网，之后可离线启动。</p><button id="retry" hidden>重试安装</button></main><script>
+const base='/ninja-relay-pwa/', workerUrl=new URL(base+'sw.js',location.origin).href;
+let reloading=false;
+function reloadWhenReady(){if(!reloading&&navigator.serviceWorker.controller?.scriptURL===workerUrl){reloading=true;location.reload();}}
+async function boot(){try{
+ if(!('serviceWorker' in navigator)||!isSecureContext)throw Error('请通过 HTTPS 地址打开，才能安装相机应用。');
+ navigator.serviceWorker.addEventListener('controllerchange',reloadWhenReady);
+ const registration=await navigator.serviceWorker.register(workerUrl,{scope:base,updateViaCache:'none'});
+ const installing=registration.installing;
+ if(installing)installing.addEventListener('statechange',()=>{if(installing.state==='redundant')fail(Error('离线资源保存失败，请检查网络后重试。'));});
+ reloadWhenReady();
+}catch(e){fail(e);}}
+function fail(e){document.querySelector('#status').textContent=e.message;document.querySelector('#retry').hidden=false;}document.querySelector('#retry').onclick=boot;boot();setTimeout(()=>{document.querySelector('#retry').hidden=false;},15000);
+</script></body></html>

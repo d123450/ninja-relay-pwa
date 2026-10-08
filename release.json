@@ -1,69 +1,69 @@
 {
-  "version": "1.1.0",
-  "entry": "/ninja-relay-pwa/releases/1.1.0/app.html",
+  "version": "2.0.0",
+  "entry": "/ninja-relay-pwa/releases/2.0.0/app.html",
   "assets": [
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/app.css",
-      "size": 17686,
-      "sha256": "345f4ac69ca3086cbbf5c9ce040a05bfe84ee99490057eb612f131e90246e7fa"
+      "url": "/ninja-relay-pwa/releases/2.0.0/app.css",
+      "size": 18344,
+      "sha256": "67564b518d74b6f30b2e02472c248450e52f5563264b5b7852ff1443e1edf58a"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/app.html",
+      "url": "/ninja-relay-pwa/releases/2.0.0/app.html",
       "size": 1339,
-      "sha256": "97a07ed55a8a17cc741ed9df70fa2b8a3a072755e069603daf3b5e7960191134"
+      "sha256": "9f28263a5317f98584087c901ae17e77a71867ead5cf701ba53eb9937c4eb9f1"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/app.js",
-      "size": 115050,
-      "sha256": "1cd74b79cece729d5b7c311df74381e2464940e0f03c29010edb734c89ff1c73"
+      "url": "/ninja-relay-pwa/releases/2.0.0/app.js",
+      "size": 125369,
+      "sha256": "e92a564f38850818cde544bebf3ea93a139388886adf0262a4412ff96ffe2a19"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/audio-worklet.js",
-      "size": 602,
-      "sha256": "065a69eeed984bfda61dcb8d8ca2d475fcdb1e2d919cdec2698b52a5de500705"
+      "url": "/ninja-relay-pwa/releases/2.0.0/audio-worklet.js",
+      "size": 600,
+      "sha256": "45d2e450d7539b96e4e08b72cb1062edb3fdcc251ed0bf41bddab365de7888c9"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/icons/icon-180.png",
+      "url": "/ninja-relay-pwa/releases/2.0.0/icons/icon-180.png",
       "size": 1452,
       "sha256": "05731e789ba743ba09453023e6045a6c4995d0cf12d3f440687f177c56153171"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/icons/icon-192.png",
+      "url": "/ninja-relay-pwa/releases/2.0.0/icons/icon-192.png",
       "size": 1552,
       "sha256": "1accf1df69824545ae0c8a75195d2dc741b25e0e82ba4be637fcbd39d05da821"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/icons/icon-512.png",
+      "url": "/ninja-relay-pwa/releases/2.0.0/icons/icon-512.png",
       "size": 4890,
       "sha256": "14da982e02ed280f6d1e0aabf066db44dc1e66e25136e5f51c62262cc4f409d0"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/icons/icon.svg",
+      "url": "/ninja-relay-pwa/releases/2.0.0/icons/icon.svg",
       "size": 251,
       "sha256": "d9131ccdf7cec56bff5e3585f8a0b2a5489cfa49ebcd36a828237ced37a6fa6e"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/manifest.webmanifest",
+      "url": "/ninja-relay-pwa/releases/2.0.0/manifest.webmanifest",
       "size": 640,
-      "sha256": "db007d056ea10112605dfed78178d907019525236e62647529ac9c31fc883f0b"
+      "sha256": "690abd882c0327e5fea829589d6ad4e14330c47f34905386127a88a8be360a28"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/vendor/LICENSE",
+      "url": "/ninja-relay-pwa/releases/2.0.0/vendor/LICENSE",
       "size": 16726,
       "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/vendor/qrcode-LICENSE.txt",
+      "url": "/ninja-relay-pwa/releases/2.0.0/vendor/qrcode-LICENSE.txt",
       "size": 1076,
       "sha256": "8df47c6ad9ac2c41eb9b2a72def9908959da0ede8dadd56c7b249c1bdb0c5ce6"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/vendor/vdoninja-sdk.d.ts",
+      "url": "/ninja-relay-pwa/releases/2.0.0/vendor/vdoninja-sdk.d.ts",
       "size": 18690,
       "sha256": "72fc62ed04d8ce4de1009bb7d002b71cd9960758e809597ad32d318540303887"
     },
     {
-      "url": "/ninja-relay-pwa/releases/1.1.0/vendor/vdoninja-sdk.js",
+      "url": "/ninja-relay-pwa/releases/2.0.0/vendor/vdoninja-sdk.js",
       "size": 406730,
       "sha256": "cd295ad295713ca14b6c4cded2380ccd2e663952abd33bc43a76a4986a59e5ee"
     }

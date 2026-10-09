@@ -1,91 +1,86 @@
 {
-  "version": "3.1.2",
-  "entry": "/ninja-relay-pwa/releases/3.1.2/app.html",
+  "version": "3.2.0",
+  "entry": "/ninja-relay-pwa/releases/3.2.0/app.html",
   "assets": [
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/app.css",
+      "url": "/ninja-relay-pwa/releases/3.2.0/app.css",
       "size": 9666,
       "sha256": "72f41371596b57d27e7145ae2a3c3d1b084f17db39a00d318a2b4d653a16cd9e"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/app.html",
-      "size": 1816,
-      "sha256": "c78dddc560d96dbc268db8f16cf26eddae40a5fafc4154750ed104463717fb91"
+      "url": "/ninja-relay-pwa/releases/3.2.0/app.html",
+      "size": 1768,
+      "sha256": "7c9da3ed147ff383b713ca0c59f52d4c53e07c2b9b87e7d0bf809097f1046541"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/app.js",
-      "size": 548125,
-      "sha256": "531799ed52389a1fa37fc9e0d7450be075d436aa3abe33f5c237e6a23837a656"
+      "url": "/ninja-relay-pwa/releases/3.2.0/app.js",
+      "size": 560894,
+      "sha256": "8f61d70778c17208585133b78ee829160a81fbde92c6a52b8c4073d76ac630b8"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/audio-worklet.js",
+      "url": "/ninja-relay-pwa/releases/3.2.0/audio-worklet.js",
       "size": 600,
       "sha256": "45d2e450d7539b96e4e08b72cb1062edb3fdcc251ed0bf41bddab365de7888c9"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/bootstrap.css",
+      "url": "/ninja-relay-pwa/releases/3.2.0/bootstrap.css",
       "size": 232111,
       "sha256": "d85327d99c7a3ee1f9b5d0500d1370acea3ad2db39c163c2f51f232baedbdede"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/icons/icon-180.png",
+      "url": "/ninja-relay-pwa/releases/3.2.0/icons/icon-180.png",
       "size": 1452,
       "sha256": "05731e789ba743ba09453023e6045a6c4995d0cf12d3f440687f177c56153171"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/icons/icon-192.png",
+      "url": "/ninja-relay-pwa/releases/3.2.0/icons/icon-192.png",
       "size": 1552,
       "sha256": "1accf1df69824545ae0c8a75195d2dc741b25e0e82ba4be637fcbd39d05da821"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/icons/icon-512.png",
+      "url": "/ninja-relay-pwa/releases/3.2.0/icons/icon-512.png",
       "size": 4890,
       "sha256": "14da982e02ed280f6d1e0aabf066db44dc1e66e25136e5f51c62262cc4f409d0"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/icons/icon.svg",
+      "url": "/ninja-relay-pwa/releases/3.2.0/icons/icon.svg",
       "size": 251,
       "sha256": "d9131ccdf7cec56bff5e3585f8a0b2a5489cfa49ebcd36a828237ced37a6fa6e"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/manifest.webmanifest",
+      "url": "/ninja-relay-pwa/releases/3.2.0/manifest.webmanifest",
       "size": 640,
-      "sha256": "2a076a8084d3aa304b86677224dbc051039397d300ebde140dee710357b30ca4"
+      "sha256": "973e00996cc70a61889e8f6225de126e325b882fc2770b88869c44469443e5ac"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/bootstrap-icons-LICENSE.txt",
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/bootstrap-icons-LICENSE.txt",
       "size": 1093,
       "sha256": "0fb3e11bd57e896c5a512afd64864d28a37de45d19835016c87ca1ad19ead969"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/bootstrap-LICENSE.txt",
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/bootstrap-LICENSE.txt",
       "size": 1093,
       "sha256": "4620c84ad5ce8602ff65640ed6b7c8b78ebb9e036584f0ebc1ccc88206a4bb51"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/jsqr-LICENSE.txt",
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/jsqr-LICENSE.txt",
       "size": 11358,
       "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/LICENSE",
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/LICENSE",
       "size": 16726,
       "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
     },
     {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/qrcode-LICENSE.txt",
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/ninja-rtp.js",
+      "size": 2448,
+      "sha256": "b9b40c4744b5f25cb8e8f3372b63b61696ede9a9f4fc95c348151daf162495f1"
+    },
+    {
+      "url": "/ninja-relay-pwa/releases/3.2.0/vendor/qrcode-LICENSE.txt",
       "size": 1076,
       "sha256": "8df47c6ad9ac2c41eb9b2a72def9908959da0ede8dadd56c7b249c1bdb0c5ce6"
-    },
-    {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/vdoninja-sdk.d.ts",
-      "size": 18690,
-      "sha256": "72fc62ed04d8ce4de1009bb7d002b71cd9960758e809597ad32d318540303887"
-    },
-    {
-      "url": "/ninja-relay-pwa/releases/3.1.2/vendor/vdoninja-sdk.js",
-      "size": 406730,
-      "sha256": "cd295ad295713ca14b6c4cded2380ccd2e663952abd33bc43a76a4986a59e5ee"
     }
   ]
 }

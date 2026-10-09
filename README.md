@@ -1,8 +1,10 @@
-# Ninja Relay PWA 3
+# 映桥 PWA 3.3
 
 手机安装入口：https://d123450.github.io/ninja-relay-pwa/
 
-3.2 使用独立的一对一 WebRTC 模块，通过 **同一局域网内的 Windows 客户端信令** 连接，不依赖 VDO.Ninja 公网信令、STUN 或 TURN。两端页面均需手动更新到 3.2；3.x 的配对与设置继续保留。
+3.3 使用独立的一对一 WebRTC 模块，通过 **同一局域网内的 Windows 客户端信令** 连接，不依赖 VDO.Ninja 公网信令、STUN 或 TURN。两端页面均需手动更新到 3.3；3.x 的配对与设置继续保留。
+
+摄像头和麦克风独立申请权限、独立开关，支持仅声音传输。设置按摄像头、麦克风和本机分组，iPhone 默认值在 Windows 没有指定优先项时生效。
 
 首次从 Windows“配对”页扫码，按本地页面完成电脑 HTTPS 证书信任。返回页面后配对信息自动带入，核对电脑名再确认。Safari 添加到主屏幕，等“已完整缓存”。手机应用提供“查找电脑”和内置扫码，配对后保存地址。Safari 无法在信任前任意广播扫描整个局域网，因此首次使用系统相机二维码引导。
 
@@ -19,5 +21,5 @@ GitHub 只提供程序静态文件，不接收音视频、配对密钥或信令�
 - qrcode 1.5.4，MIT。
 - jsQR 1.4.0，MIT。
 
-配套 Windows：Ninja Relay Camera 为 Windows 11 会话式 MF 摄像头；麦克风复用 VB-Audio 的 CABLE Output。关闭客户端时移除摄像头、停用线缆端点，内核音频驱动保留。
+配套 Windows：映桥摄像头 为 Windows 11 会话式 MF 摄像头；麦克风复用 VB-Audio 的 CABLE Output。关闭客户端时移除摄像头、停用线缆端点，内核音频驱动保留。
 

@@ -1,14 +1,132 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10151e"><meta name="referrer" content="no-referrer"><title>Ninja Relay · 安装</title><style>body{margin:0;background:#10151e;color:#f0f4fa;font:16px system-ui;display:grid;place-content:center;min-height:100vh;padding:24px;box-sizing:border-box}main{max-width:420px}h1{font-size:30px}p{line-height:1.8;color:#a5b3c7}button{padding:14px 24px;border:0;border-radius:10px;background:#94b9ff;color:#10151e;font:inherit}a{color:#94b9ff}</style></head><body><main><h1>Ninja Relay</h1><p id="status">正在保存应用和推流组件。首次打开需要联网，之后可离线启动。</p><button id="retry" hidden>重试安装</button></main><script>
-const base='/ninja-relay-pwa/', workerUrl=new URL(base+'sw.js',location.origin).href;
-let reloading=false;
-function reloadWhenReady(){if(!reloading&&navigator.serviceWorker.controller?.scriptURL===workerUrl){reloading=true;location.reload();}}
-async function boot(){try{
- if(!('serviceWorker' in navigator)||!isSecureContext)throw Error('请通过 HTTPS 地址打开，才能安装相机应用。');
- navigator.serviceWorker.addEventListener('controllerchange',reloadWhenReady);
- const registration=await navigator.serviceWorker.register(workerUrl,{scope:base,updateViaCache:'none'});
- const installing=registration.installing;
- if(installing)installing.addEventListener('statechange',()=>{if(installing.state==='redundant')fail(Error('离线资源保存失败，请检查网络后重试。'));});
- reloadWhenReady();
-}catch(e){fail(e);}}
-function fail(e){document.querySelector('#status').textContent=e.message;document.querySelector('#retry').hidden=false;}document.querySelector('#retry').onclick=boot;boot();setTimeout(()=>{document.querySelector('#retry').hidden=false;},15000);
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f3ef">
+  <meta name="referrer" content="no-referrer">
+  <title>Ninja Relay</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23242823'/%3E%3Ccircle cx='43' cy='50' r='24' fill='none' stroke='%23e5f0e2' stroke-width='12'/%3E%3Cpath d='M65 43 82 33v34L65 57Z' fill='%23e5f0e2'/%3E%3C/svg%3E">
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:28px;background:#f4f3ef;color:#242823;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Microsoft YaHei UI",system-ui,sans-serif}main{width:100%;max-width:320px;padding-bottom:6vh}.mark{width:58px;height:58px;margin-bottom:24px}h1{font-size:26px;font-weight:600;letter-spacing:-.8px;margin:0 0 24px}p{margin:0;color:#646b60}progress{display:block;appearance:none;border:0;border-radius:4px;overflow:hidden;width:100%;height:4px;background:#dfe3da;margin:22px 0 12px;accent-color:#287052}progress::-webkit-progress-bar{background:#dfe3da}progress::-webkit-progress-value{background:#287052}#count{font-size:12px;min-height:18px;font-variant-numeric:tabular-nums}button{font:inherit;min-height:48px;padding:11px 22px;border:0;border-radius:9px;background:#287052;color:white;cursor:pointer;margin-top:24px}button:disabled{opacity:.5;cursor:wait}button:focus-visible,summary:focus-visible{outline:3px solid #287052;outline-offset:4px}.secondary{background:transparent;color:#287052;padding-left:0;margin:12px 0 0}details{margin-top:20px;font-size:12px;color:#646b60}summary{cursor:pointer;min-height:44px;align-content:center}#detail{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0}[hidden]{display:none!important}
+  </style>
+</head>
+<body><main aria-busy="true">
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#242823"/><circle cx="43" cy="50" r="24" fill="none" stroke="#e5f0e2" stroke-width="12"/><path d="M65 43 82 33v34L65 57Z" fill="#e5f0e2"/></svg>
+  <h1>Ninja Relay</h1>
+  <p id="status" role="status">正在打开…</p>
+  <progress id="progress" aria-label="离线资源下载进度" hidden></progress>
+  <p id="count" hidden></p>
+  <button id="retry" hidden>重试</button>
+  <button id="restore" class="secondary" hidden>回退上一版本</button>
+  <details id="error-details" hidden><summary>查看详情</summary><p id="detail"></p></details>
+  <noscript><p>请启用 JavaScript 后重新打开。</p></noscript>
+</main>
+<script>
+(() => {
+  const base = '/ninja-relay-pwa/';
+  const workerUrl = new URL(base + 'sw.js', location.origin).href;
+  const launchKey = 'relay-launch:' + base;
+  const $ = id => document.getElementById(id);
+  let busy = false, worker;
+
+  function deadline(promise, ms, message) {
+    let timer;
+    return Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(Error(message)), ms); })]).finally(() => clearTimeout(timer));
+  }
+  function message(type) {
+    return new Promise((resolve, reject) => {
+      const channel = new MessageChannel();
+      const timer = setTimeout(() => finish(Error('启动组件没有响应。请重试。')), 75000);
+      function finish(error, result) { clearTimeout(timer); channel.port1.close(); error ? reject(error) : resolve(result); }
+      channel.port1.onmessage = ({data}) => {
+        if (data.progress) {
+          const {done, total} = data.progress;
+          $('progress').hidden = $('count').hidden = false;
+          $('progress').max = total; $('progress').value = done;
+          $('count').textContent = `${done} / ${total}`;
+          return;
+        }
+        finish(data.ok ? null : Error(data.error), data.result);
+      };
+      worker.postMessage({type}, [channel.port2]);
+    });
+  }
+  async function activate(registration) {
+    const next = registration.installing || registration.waiting;
+    if (next) await deadline(new Promise((resolve, reject) => {
+      const check = () => {
+        if (next.state === 'activated' || next.state === 'redundant') {
+          next.removeEventListener('statechange', check);
+          next.state === 'activated' ? resolve() : reject(Error('启动组件安装失败。'));
+        }
+      };
+      next.addEventListener('statechange', check); check();
+    }), 20000, '启动组件加载超时。');
+    if (!registration.active) throw Error('启动组件未启用。');
+    return registration.active;
+  }
+  function failure(error) {
+    $('status').textContent = /超时/.test(error.message) ? '下载超时' : '暂时无法打开';
+    $('detail').textContent = error.message;
+    $('error-details').hidden = false;
+    $('retry').textContent = '重试'; $('retry').hidden = false;
+  }
+  async function launch() {
+    // Bypassing service workers must not reload this page forever.
+    const last = Number(sessionStorage.getItem(launchKey) || 0);
+    if (Date.now() - last < 15000) throw Error('浏览器未加载本地应用。若正在使用开发者工具，请关闭 Application → Service Workers → Bypass for network 后重试。');
+    sessionStorage.setItem(launchKey, String(Date.now()));
+    const url = new URL(location.href); url.searchParams.delete('repair');
+    if (url.pathname === base + 'repair.html') url.pathname = base;
+    if (url.href === location.href) location.reload(); else location.replace(url.href);
+  }
+  async function boot(manual = false, rollback = false) {
+    if (busy) return;
+    busy = true; document.querySelector('main').setAttribute('aria-busy', 'true');
+    $('retry').disabled = $('restore').disabled = true;
+    $('retry').hidden = $('restore').hidden = $('error-details').hidden = true;
+    $('progress').hidden = $('count').hidden = true;
+    $('status').textContent = manual ? '正在重试…' : '正在打开…';
+    if (manual) sessionStorage.removeItem(launchKey);
+    try {
+      if (!('serviceWorker' in navigator) || !isSecureContext) throw Error('此浏览器无法保存离线应用，请使用 Safari 的 HTTPS 地址。');
+      worker = navigator.serviceWorker.controller?.scriptURL === workerUrl ? navigator.serviceWorker.controller : null;
+      if (!worker) {
+        const registration = await deadline(navigator.serviceWorker.register(workerUrl, {scope:base, updateViaCache:'none'}), 20000, '启动组件下载超时。');
+        worker = await activate(registration);
+      }
+      let status;
+      try { status = await message('BOOT'); }
+      catch (error) {
+        if (!/未知操作/.test(error.message)) throw error;
+        // Upgrade only the bootstrap protocol, preserving the installed app release.
+        const registration = await navigator.serviceWorker.getRegistration(base);
+        await deadline(registration.update(), 20000, '启动组件下载超时。');
+        worker = await activate(registration);
+        status = await message('BOOT');
+      }
+      $('restore').hidden = !status.previousReady;
+      if (rollback) { await message('ROLLBACK'); await launch(); return; }
+      const repairPage = location.pathname === base + 'repair.html' || new URL(location.href).searchParams.has('repair');
+      if (status.ready && !repairPage) { await launch(); return; }
+      if (status.state.active && !manual) {
+        $('status').textContent = status.ready ? '修复本地应用' : '本地资源不完整';
+        $('retry').textContent = '修复并打开'; $('retry').hidden = false;
+        return;
+      }
+      $('status').textContent = status.state.active ? '正在修复…' : '正在下载离线资源…';
+      await message('REPAIR');
+      $('status').textContent = '已就绪';
+      await launch();
+    } catch (error) { failure(error); }
+    finally {
+      busy = false; document.querySelector('main').setAttribute('aria-busy','false');
+      $('retry').disabled = $('restore').disabled = false;
+    }
+  }
+  $('retry').addEventListener('click', () => boot(true));
+  $('restore').addEventListener('click', () => boot(true, true));
+  boot();
+})();
 </script></body></html>
